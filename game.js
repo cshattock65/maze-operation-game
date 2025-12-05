@@ -24,13 +24,13 @@ function drawlevel(){
         
         ctx.beginPath();
         ctx.moveTo(penPointX, penPointY);
-        penPointX = 1000
+        penPointX = 500
         ctx.lineTo(penPointX, penPointY);
         ctx.stroke();
 
         ctx.beginPath();
         ctx.moveTo(penPointX, penPointY);
-        penPointY = 1000
+        penPointY = 500
         ctx.lineTo(penPointX, penPointY);
         ctx.stroke();
 
@@ -46,27 +46,37 @@ function drawlevel(){
         ctx.lineTo(penPointX, penPointY);
         ctx.stroke();
 
+        penPointY = 50
+        let elmnt = 0
+        let row = 0 
+
         levelArr.forEach(element => {
+            const row = Math.floor(elmnt / 10) + 1;
+            console.log('row =', row);
+
+            var column = elmnt % 10;
+            console.log('column', column);
+
+            penPointX = 50 * column
+            penPointY = 50 * row
+
             if (element === "X"){
                 ctx.beginPath();
                 ctx.moveTo(penPointX, penPointY);
-                penPointX -= 50
-                penPointY += 0
+                penPointX += 50
                 ctx.lineTo(penPointX, penPointY);
                 ctx.stroke();
+
+                ctx.beginPath();
             }
             else if(element === "Y"){
                 ctx.beginPath();
                 ctx.moveTo(penPointX, penPointY);
-                penPointX += 0
-                penPointY = 50
+                penPointY += 50
                 ctx.lineTo(penPointX, penPointY);
-                ctx.stroke();      
-                penPointY += 50     
-                penPointX += 50  
+                ctx.stroke();
             }
             else if(element === "Y\r\n"){
-                penPointX = 0
                 ctx.beginPath();
                 ctx.moveTo(penPointX, penPointY);
                 penPointX += 0
@@ -80,8 +90,9 @@ function drawlevel(){
                 penPointX += 0
                 penPointY += 50
                 ctx.stroke(); 
-                penPointX = 0
             }
+
+            elmnt += 1
             
         });
     }
