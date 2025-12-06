@@ -24,13 +24,13 @@ function drawlevel(){
         
         ctx.beginPath();
         ctx.moveTo(penPointX, penPointY);
-        penPointX = 500
+        penPointX = 950
         ctx.lineTo(penPointX, penPointY);
         ctx.stroke();
 
         ctx.beginPath();
         ctx.moveTo(penPointX, penPointY);
-        penPointY = 500
+        penPointY = 950
         ctx.lineTo(penPointX, penPointY);
         ctx.stroke();
 
@@ -51,16 +51,16 @@ function drawlevel(){
         let row = 0 
 
         levelArr.forEach(element => {
-            const row = Math.floor(elmnt / 10) + 1;
+            const row = Math.floor(elmnt / 20);
             console.log('row =', row);
 
-            var column = elmnt % 10;
+            var column = elmnt % 20;
             console.log('column', column);
 
             penPointX = 50 * column
             penPointY = 50 * row
 
-            if (element === "X"){
+            if (element === "X" || element === "\r\nX"){
                 ctx.beginPath();
                 ctx.moveTo(penPointX, penPointY);
                 penPointX += 50
@@ -69,36 +69,34 @@ function drawlevel(){
 
                 ctx.beginPath();
             }
-            else if(element === "Y"){
+            else if(element === "Y" || element === "\r\nY"){
                 ctx.beginPath();
                 ctx.moveTo(penPointX, penPointY);
-                penPointY += 50
+                penPointY -= 50
                 ctx.lineTo(penPointX, penPointY);
                 ctx.stroke();
             }
-            else if(element === "Y\r\n"){
+            else if(element === "Z" || element === "\r\nZ"){
                 ctx.beginPath();
                 ctx.moveTo(penPointX, penPointY);
-                penPointX += 0
-                penPointY += 50
+                penPointX += 50
                 ctx.lineTo(penPointX, penPointY);
-                ctx.stroke(); 
-            }
-            else if(element === "-"){
+                ctx.stroke();
+                penPointX -= 50
+
                 ctx.beginPath();
                 ctx.moveTo(penPointX, penPointY);
-                penPointX += 0
-                penPointY += 50
-                ctx.stroke(); 
+                penPointY -= 50
+                ctx.lineTo(penPointX, penPointY);
+                ctx.stroke();
             }
 
             elmnt += 1
-            
         });
     }
 
     (async () => {
-        const levelArr = await getlevel(2);
+        const levelArr = await getlevel(4);
         console.log('Level array is:', levelArr);
         paintlevel(levelArr);
     })();
