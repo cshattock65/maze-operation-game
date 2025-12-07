@@ -1,5 +1,5 @@
-function drawlevel(){    
-    async function getlevel(level) {
+function drawLevel(){    
+    async function getLevel(level) {
         // Get data from text file and make into an array
         url = './assets/levels/Level'+level+'.txt';
         
@@ -14,7 +14,7 @@ function drawlevel(){
         }
         }
     
-    function paintlevel(levelArr){    
+    function paintLevel(levelArr){    
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
 
@@ -96,10 +96,25 @@ function drawlevel(){
     }
 
     (async () => {
-        const levelArr = await getlevel(4);
+        const levelArr = await getLevel(4);
         console.log('Level array is:', levelArr);
-        paintlevel(levelArr);
+        paintLevel(levelArr);
     })();
 }
 
-drawlevel();
+function gameBehaviours()
+{
+    function mouseCollision(){
+        // if mouse is on black pixel fail and white fine
+        // Imagine the best way of doing that is to set up a recurring function
+        // that calculates how far the curser is from a black pixel
+        // I think chatgpt might be fair for this one
+
+        // https://blog.thejaytray.com/canvas-basics-06-collision-detection/
+    }
+}
+drawLevel();
+
+// Add Mouse collision
+// Add Automatic level creation
+// Gameify
