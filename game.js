@@ -105,6 +105,35 @@ function drawLevel(){
 function gameBehaviours()
 {
     function mouseCollision(){
+        window.addEventListener('load', init, false);
+        var canvas;
+        var ctx;
+        var cposX;
+        var cposY;
+
+        function init(){
+            canvas = document.getElementById("myCanvas");
+            ctx = canvas.getContext("2d");
+            canvas.addEventListener("mousemove", mouseMove, false);
+        }
+
+        function mouseMove(e){
+            e.preventDefault();
+            cposX = e.pageX - canvas.offsetLeft
+            cposY = e.pageY - canvas.offsetTop;
+            displayMousePosition();
+        }
+
+        function displayMousePosition(){
+            ctx.font = "16px Arial";
+            ctx.fillStyle = "red";
+            var str = "x = " + cposX + ", " + "y = " + cposY;
+            ctx.clearRect(0,0,canvas.width,canvas.height); 
+            ctx.fillText(str, canvas.width/2, canvas.height/2, canvas.width-20); 
+        }
+
+        // Formula: d(P1, P2) = √[(x2 - x1)² + (y2 - y1)²]
+        
         // if mouse is on black pixel fail and white fine
         // Imagine the best way of doing that is to set up a recurring function
         // that calculates how far the curser is from a black pixel
@@ -112,8 +141,10 @@ function gameBehaviours()
 
         // https://blog.thejaytray.com/canvas-basics-06-collision-detection/
     }
+    mouseCollision()
 }
 drawLevel();
+gameBehaviours()
 
 // Add Mouse collision
 // Add Automatic level creation
