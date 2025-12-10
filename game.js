@@ -102,16 +102,10 @@ function drawLevel(){
 
 function gameBehaviours()
 {
-    function mouseCollision(){
-        let canvas, ctx;
-        let playerX = 10; // starting X
-        let playerY = 10; // starting Y
-        let cursor = document.getElementById("cursor");
-    }
-
+    let lives = 100
     function clearLevel(){
         const canvas = canvas.getContext('2d');
-        canvas.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     let canvas, ctx;
@@ -136,6 +130,15 @@ function gameBehaviours()
 
         checkCollision();
     }
+    function manageLives(action){
+        document.getElementById('outputLives').innerHTML = lives;
+        if(lives === 0){
+            clearLevel();
+        }
+        if(action === 1){
+            lives -= 1;
+        }
+    }
 
     function checkCollision() {
         const pixel = ctx.getImageData(cposX, cposY, 1, 1).data;
@@ -145,11 +148,12 @@ function gameBehaviours()
             console.log(" Collision! Resetting...");
             cursor.style.left = "0px";
             cursor.style.top = "0px";
-            clearLevel();           
+            action = 1;
+            manageLives(action);           
         } else {
             // move the fake cursor element
-            cursor.style.left = (px + cposX) + "px";
-            cursor.style.top = (py + cposY) + "px";
+            // cursor.style.left = (px + cposX + 3) + "px";
+            // cursor.style.top = (py + cposY + 180) + "px";
         }
     }
 
