@@ -1,7 +1,7 @@
 function drawLevel(){    
     async function getLevel(level) {
         // Get data from text file and make into an array
-        url = './assets/levels/Level'+level+'.txt';
+        const url = './assets/levels/Level'+level+'.txt';
         
         try {
             const response = await fetch(url);
@@ -48,7 +48,6 @@ function drawLevel(){
 
         penPointY = 50
         let elmnt = 0
-        let row = 0 
 
         levelArr.forEach(element => {
             const row = Math.floor(elmnt / 20);
@@ -102,15 +101,15 @@ function drawLevel(){
 
 function gameBehaviours()
 {
-    let lives = 100
+    let lives = 3
+    // document.getElementById("playbtn").style.display = "block";
+
     function clearLevel(){
-        const canvas = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     let canvas, ctx;
     let cposX = 0, cposY = 0;
-    let px = 0, py = 0;
 
     let cursor = document.getElementById("cursor");
 
@@ -133,7 +132,15 @@ function gameBehaviours()
     function manageLives(action){
         document.getElementById('outputLives').innerHTML = lives;
         if(lives === 0){
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
             clearLevel();
+            
+
+            document.getElementById("playbtn").style.display = "block";
+
+
+            // implement reset game()
         }
         if(action === 1){
             lives -= 1;
@@ -146,10 +153,7 @@ function gameBehaviours()
 
         if (r === 0 && g === 0 && b === 0 && a > 0) {
             console.log(" Collision! Resetting...");
-            cursor.style.left = "0px";
-            cursor.style.top = "0px";
-            action = 1;
-            manageLives(action);           
+            manageLives(1);           
         } else {
             // move the fake cursor element
             // cursor.style.left = (px + cposX + 3) + "px";
@@ -157,7 +161,6 @@ function gameBehaviours()
         }
     }
 
-    mouseCollision()
     // start everything when the page loads
     window.addEventListener("load", init, false);
     }
